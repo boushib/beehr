@@ -7,6 +7,10 @@ import java.util.UUID;
 
 public interface IOfferDao {
   List<Offer> getAllOffers();
+  List<Offer> getOffersForUser(UUID userId);
+  void createOffer(Offer offer, UUID userId);
+  void updateOffer(Offer offer, UUID userId);
+  void deleteOffer(UUID offerId);
   Offer getOfferById(UUID offerId);
   Offer getOfferBySlug(String offerSlug);
 }

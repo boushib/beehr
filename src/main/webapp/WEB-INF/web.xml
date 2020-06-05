@@ -16,14 +16,30 @@
         <servlet-name>User</servlet-name>
         <servlet-class>com.boushib.servlets.UserServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Logout</servlet-name>
+        <servlet-class>com.boushib.servlets.Logout</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>Offers</servlet-name>
         <url-pattern>/offers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>Offers</servlet-name>
+        <url-pattern>/my_offers</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>Offer</servlet-name>
         <url-pattern>/offer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Offer</servlet-name>
+        <url-pattern>/new_offer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Offer</servlet-name>
+        <url-pattern>/update_offer</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>User</servlet-name>
@@ -31,10 +47,10 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>User</servlet-name>
-        <url-pattern>/my_offers</url-pattern>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>User</servlet-name>
-        <url-pattern>/login</url-pattern>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
     </servlet-mapping>
 </web-app>

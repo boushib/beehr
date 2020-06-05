@@ -33,10 +33,11 @@ public class UserServlet extends HttpServlet {
 
   protected void checkUserAuthentication(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     Object user_session = request.getSession().getAttribute("user");
+
     if( user_session == null ) response.sendRedirect("login");
     else {
       String path = request.getRequestURI().substring(request.getContextPath().length() + 1);
-      String redirectPath = path.equals("my_offers") ? "my_offers.jsp" : "profile.jsp";
+      String redirectPath = path.equals("profile") ? "profile.jsp" : "index.jsp";
       this.getServletContext().getRequestDispatcher(redirectPath).forward(request, response);
     }
   }
@@ -47,13 +48,18 @@ public class UserServlet extends HttpServlet {
     String password = request.getParameter("password");
 
     User user = userDao.login(email, password);
-
     if( user == null ) {
-      this.getServletContext().getRequestDispatcher("login.jsp").forward(request, response);
+      response.sendRedirect("login");
     } else {
       HttpSession session = request.getSession();
       session.setAttribute("user", user);
-      this.getServletContext().getRequestDispatcher("profile.jsp").forward(request, response);
+      response.sendRedirect("profile");
     }
+  }
+
+  protected void logout(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    HttpSession session = request.getSession();
+    session.removeAttribute("user");
+    response.sendRedirect("login");
   }
 }

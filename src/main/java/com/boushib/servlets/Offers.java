@@ -31,8 +31,10 @@ public class Offers extends HttpServlet {
     doGet(request, response);
   }
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    // this.getServletContext().getRequestDispatcher("offers.jsp").forward(request, response);
-    getAllOffers(request, response);
+    // check offers or my_offers
+    String path = request.getRequestURI().substring(request.getContextPath().length() + 1);
+    if (path.equals("offers")) getAllOffers(request, response);
+    if (path.equals("my_offers")) getOffersForUser(request, response);
   }
 
   protected void getAllOffers(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -41,5 +43,17 @@ public class Offers extends HttpServlet {
     session.setAttribute("offers", offers);
     request.setAttribute("offers", offers);
     this.getServletContext().getRequestDispatcher("offers.jsp").forward(request, response);
+  }
+  protected void getOffersForUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    User user = (User) request.getSession().getAttribute("user");
+    if( user == null ) response.sendRedirect("login");
+
+    UUID user_id = user.getId();
+
+    List<Offer> offers = offerDao.getOffersForUser(user_id);
+    HttpSession session = request.getSession();
+    session.setAttribute("my_offers", offers);
+    request.setAttribute("my_offers", offers);
+    this.getServletContext().getRequestDispatcher("my_offers.jsp").forward(request, response);
   }
 }
