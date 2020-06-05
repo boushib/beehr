@@ -30,7 +30,7 @@ public class OfferServlet extends HttpServlet {
         createOffer(request, response);
         break;
       case "populate_offer_to_update":
-        doGet(request, response);
+        populateOfferForUpdate(request, response);
         break;
       case "update-offer":
         updateOffer(request, response);
@@ -52,39 +52,19 @@ public class OfferServlet extends HttpServlet {
       this.getServletContext().getRequestDispatcher("new_offer.jsp").forward(request, response);
     }
 
-    Offer current_offer = null;
-    String offerId = request.getParameter("offer_id");
+    UUID offerId = UUID.fromString(request.getParameter("offer_id"));
+    Offer offer = offerDao.getOfferById(offerId);
 
-    // we have offers
+    System.out.println(offer.getTitle());
 
-    String action = request.getParameter("action");
-
-    if(action.equals("populate_offer_to_update")) {
-      System.out.println("populate.....");
-      List<Offer> my_offers = (List<Offer>) request.getSession().getAttribute("my_offers");
-      List<Offer> my_filtered_offers = my_offers.stream().filter(offer -> offer.getId().toString().equals(offerId)).collect(Collectors.toList());
-
-      if(!my_filtered_offers.isEmpty()) current_offer = my_filtered_offers.get(0);
-      request.setAttribute("offer", current_offer);
-      // this.getServletContext().getRequestDispatcher("update_offer.jsp").forward(request, response);
-      response.sendRedirect("update_offer");
-    }
-
-    System.out.println("bypass populate...");
-
-    List<Offer> offers = (List<Offer>) request.getSession().getAttribute("offers");
-    List<Offer> filtered_offers = offers.stream().filter(offer -> offer.getId().toString().equals(offerId)).collect(Collectors.toList());
-
-    if(!filtered_offers.isEmpty()) current_offer = filtered_offers.get(0);
-
-    HttpSession session = request.getSession();
-    session.setAttribute("offer", current_offer);
+    request.setAttribute("offer", offer);
 
     if (path.equals("update_offer")) {
       Object user = request.getSession().getAttribute("user");
       if (user == null) response.sendRedirect("login");
       this.getServletContext().getRequestDispatcher("update_offer.jsp").forward(request, response);
     }
+
     this.getServletContext().getRequestDispatcher("offer.jsp").forward(request, response);
   }
 
@@ -110,12 +90,9 @@ public class OfferServlet extends HttpServlet {
   }
 
   protected void updateOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    User user = (User) request.getSession().getAttribute("user");
-
-    UUID user_id = user != null ? user.getId() : null;
-
     Offer offer = new Offer();
 
+    UUID offerId = UUID.fromString(request.getParameter("id"));
     String type = request.getParameter("type");
     String title = request.getParameter("title");
     String description = request.getParameter("description");
@@ -124,13 +101,20 @@ public class OfferServlet extends HttpServlet {
     offer.setTitle(title);
     offer.setDescription(description);
 
-    offerDao.updateOffer(offer, user_id);
-    this.getServletContext().getRequestDispatcher("my_offers.jsp").forward(request, response);
+    offerDao.updateOffer(offer, offerId);
+    response.sendRedirect("my_offers");
   }
 
   protected void deleteOffer(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     UUID offerId = UUID.fromString(request.getParameter("offer_id"));
     offerDao.deleteOffer(offerId);
     response.sendRedirect("my_offers");
+  }
+
+  protected void populateOfferForUpdate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    UUID offerId = UUID.fromString(request.getParameter("offer_id"));
+    Offer offer = offerDao.getOfferById(offerId);
+    request.setAttribute("offer", offer);
+    this.getServletContext().getRequestDispatcher("update_offer.jsp").forward(request, response);
   }
 }
