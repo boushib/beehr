@@ -3,14 +3,15 @@ package com.boushib.beans;
 import java.sql.Timestamp;
 import java.util.UUID;
 
-public class Offer {
+public class Application {
   private UUID id;
-  private String type;
   private String title;
-  private String description;
+  private String status;
   private Timestamp createdAt;
   private Timestamp updatedAt;
-  private UUID userId;
+  private UUID offerId;
+  private UUID employerId;
+  private UUID applicantId;
 
   public UUID getId() {
     return id;
@@ -18,14 +19,6 @@ public class Offer {
 
   public void setId(UUID id) {
     this.id = id;
-  }
-
-  public String getType() {
-    return type;
-  }
-
-  public void setType(String type) {
-    this.type = type;
   }
 
   public String getTitle() {
@@ -36,12 +29,12 @@ public class Offer {
     this.title = title;
   }
 
-  public String getDescription() {
-    return description;
+  public String getStatus() {
+    return status;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public Timestamp getCreatedAt() {
@@ -60,11 +53,27 @@ public class Offer {
     this.updatedAt = updatedAt;
   }
 
-  public UUID getUserId() {
-    return userId;
+  public UUID getOfferId() {
+    return offerId;
   }
 
-  public void setUserId(UUID userId) {
-    this.userId = userId;
+  public void setOfferId(UUID offerId) {
+    this.offerId = offerId;
+  }
+
+  public UUID getEmployerId() {
+    return employerId;
+  }
+
+  public void setEmployerId(UUID employerId) {
+    this.employerId = employerId;
+  }
+
+  public UUID getApplicantId() {
+    return applicantId;
+  }
+
+  public void setApplicantId(UUID applicantId) {
+    this.applicantId = applicantId;
   }
 }

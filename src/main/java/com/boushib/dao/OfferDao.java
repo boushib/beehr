@@ -74,6 +74,7 @@ public class OfferDao implements IOfferDao {
         String description = resultSet.getString("description");
         Timestamp created_at = Timestamp.valueOf(resultSet.getString("created_at"));
         Timestamp updated_at = Timestamp.valueOf(resultSet.getString("updated_at"));
+        UUID user_id = UUID.fromString(resultSet.getString("user_id"));
 
         Offer offer = new Offer();
 
@@ -83,6 +84,7 @@ public class OfferDao implements IOfferDao {
         offer.setDescription(description);
         offer.setCreatedAt(created_at);
         offer.setUpdatedAt(updated_at);
+        offer.setUserId(user_id);
 
         offers.add(offer);
       }
@@ -161,6 +163,7 @@ public class OfferDao implements IOfferDao {
         String description = resultSet.getString("description");
         Timestamp created_at = Timestamp.valueOf(resultSet.getString("created_at"));
         Timestamp updated_at = Timestamp.valueOf(resultSet.getString("updated_at"));
+        UUID user_id = UUID.fromString(resultSet.getString("user_id"));
 
         Offer offer = new Offer();
 
@@ -170,6 +173,7 @@ public class OfferDao implements IOfferDao {
         offer.setDescription(description);
         offer.setCreatedAt(created_at);
         offer.setUpdatedAt(updated_at);
+        offer.setUserId(user_id);
 
         offers.add(offer);
       }

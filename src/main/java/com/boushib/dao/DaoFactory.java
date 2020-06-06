@@ -35,7 +35,12 @@ public class DaoFactory {
   public IOfferDao getOfferDao(){
     return new OfferDao(this);
   }
+
   public IUserDao getUserDao(){
     return new UserDao(this);
+  }
+
+  public IApplicationDao getApplicationDao(){
+    return new ApplicationDao(this);
   }
 }

@@ -24,12 +24,12 @@
             <form action="offer" method="post">
               <input type="hidden" name="action" value="populate_offer_to_update">
               <input type="hidden" name="offer_id" value="${offer.id}">
-              <button><span class="material-icons edit">create</span></button>
+              <button class="pointer"><span class="material-icons edit">create</span></button>
             </form>
             <form action="offer" method="post">
               <input type="hidden" name="action" value="delete-offer">
               <input type="hidden" name="offer_id" value="${offer.id}">
-              <button><span class="material-icons delete">delete</span></button>
+              <button class="pointer"><span class="material-icons delete">delete</span></button>
             </form>
           </td>
         </tr>

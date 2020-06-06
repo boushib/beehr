@@ -20,6 +20,10 @@
         <servlet-name>Logout</servlet-name>
         <servlet-class>com.boushib.servlets.Logout</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Application</servlet-name>
+        <servlet-class>com.boushib.servlets.ApplicationServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>Offers</servlet-name>
@@ -52,5 +56,9 @@
     <servlet-mapping>
         <servlet-name>Logout</servlet-name>
         <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Application</servlet-name>
+        <url-pattern>/applications</url-pattern>
     </servlet-mapping>
 </web-app>
